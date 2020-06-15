@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import Product, { IProductChangableFields } from './product.entity';
+import { Product, IProductChangableFields } from './product.entity';
 
 @Injectable()
 export default class ProductsService {
   constructor(
-    @InjectRepository(Product) private productsRepository: Repository<Product>
+    @InjectRepository(Product)
+    private productsRepository: Repository<Product>
   ) {}
 
   async createAndSave(props: IProductChangableFields): Promise<number> {
