@@ -23,7 +23,6 @@ export default class BasketService {
     basketItem.basket = basket;
     basketItem.product = product;
     basketItem.amount = amount;
-    basket.items = basket.items || [];
     basket.items.push(basketItem);
     this.basketItemsRepository.save(basketItem);
     this.basketsRepository.save(basket);
@@ -31,7 +30,7 @@ export default class BasketService {
   }
 
   async initBasket(): Promise<Basket> {
-    let basket = await this.basketsRepository.findOne(1);
+    let basket = await this.basketsRepository.findOne(1, {relations: ['items', 'items.product']});
     if (!basket) {
         basket = await this.createBasket();
     }

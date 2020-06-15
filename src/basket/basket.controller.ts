@@ -8,13 +8,13 @@ export default class BasketController {
 
     @Post('put')
     putToBasket(@Body() {productId, amount}: PutToBasketDto): any {
-        this.basketService.putToBasket(productId, amount);
+      this.basketService.putToBasket(productId, amount);
     }
 
-    // @Get('read/:id')
-    // getProduct(@Param('id', ParseIntPipe) id: number): any {
-    //     return this.productsService.findOne(id);
-    // }
+    @Get('cart')
+    getProduct(): any {
+      return this.basketService.initBasket();
+    }
 
     // @Patch('update/:id')
     // updateProduct(@Param('id', ParseIntPipe) id: number, @Body() completeBody: any): any {
