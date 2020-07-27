@@ -1,19 +1,22 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PagesModule } from './pages/pages.module';
+import { GraphQLModule } from '@nestjs/graphql';
+// import { PagesModule } from './pages/pages.module';
 import { CatalogModule } from './catalog/catalog.module';
-import { BasketModule } from './basket/basket.module';
+// import { BasketModule } from './basket/basket.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    PagesModule,
+    // PagesModule,
     CatalogModule,
-    BasketModule
+    // BasketModule,
+    GraphQLModule.forRoot({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: 'schema.gql'
+    })
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -1,32 +1,22 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Product implements IProduct {
+@ObjectType()
+export class Product extends BaseEntity {
+    @Field(() => ID)
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Field(() => String)
     @Column()
     title: string;
 
+    @Field(() => String)
     @Column('text')
     descr: string;
 
+    @Field(() => Number)
     @Column('double')
     price: number;
-}
-
-export enum ProductChangableFields {
-    title = 'title',
-    descr = 'descr',
-    price = 'price'
-}
-
-export interface IProductChangableFields {
-    [ProductChangableFields.title]: string;
-    [ProductChangableFields.descr]: string;
-    [ProductChangableFields.price]: number;
-}
-
-export interface IProduct extends IProductChangableFields {
-    id: number;
 }
