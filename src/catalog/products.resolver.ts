@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
-import { Product } from './product.entity';
+import { Product } from './models/product.model';
 import { ProductsService } from './products.service';
 import { NewProductInput } from './dto/new-product.input';
 import { ProductsArgs } from './dto/products.args';
