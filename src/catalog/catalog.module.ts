@@ -5,8 +5,8 @@ import { ProductsService } from './products.service';
 import { Product } from './models/product.model';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Product])],
-    exports: [ProductsService],
-    providers: [ProductsResolver, ProductsService],
+  imports: [TypeOrmModule.forFeature([Product])],
+  exports: [ProductsService],
+  providers: [ProductsResolver, ProductsService],
 })
 export class CatalogModule {}
