@@ -22,6 +22,23 @@ export class PagesService {
     return page.id;
   }
 
+  async analyzeUrl(url: string): Promise<Page> {
+    let page;
+    url = url.replace(/^\/|\/$/g, '') || '/';
+    if (url === '/') {
+      page = await this.pagesRepository.findOne({where: {isIndex: true}});
+    } else {
+      const path = url.split('/');
+      for (const part of path) {
+        page = await this.pagesRepository.findOne({where: {alt: part}});
+        if (!page) {
+          return null;
+        }
+      }
+    }
+    return page;
+  }
+
 //   findOne(id: number): Promise<Page> {
 //     return this.pagesRepository.findOne(id);
 //   }

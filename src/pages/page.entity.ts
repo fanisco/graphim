@@ -16,6 +16,9 @@ export class Page implements IPage {
 
     @Column('text')
     descr: string;
+
+    @Column({type: Boolean, nullable: true})
+    isIndex: boolean = null;
 }
 
 interface IPage {
