@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Basket } from './basket.entity';
-import { BasketItem } from './basketItem.entity';
+import { Basket } from './models/basket.model';
+import { BasketItem } from './models/basket-item.model';
 import { ProductsService } from '../catalog/products.service';
-import { Product } from '../catalog/product.entity';
+import { BasketArgs } from './dto/basket.args';
 
 @Injectable()
-export default class BasketService {
+export class BasketService {
   constructor(
     @InjectRepository(Basket)
     private basketsRepository: Repository<Basket>,
@@ -18,12 +18,12 @@ export default class BasketService {
 
   async putToBasket(productId: number, amount: number): Promise<number> {
     const basket = await this.initBasket();
-    const product = await this.productsService.findOne(productId);
+    // const product = await this.productsService.findOne(productId);
     const basketItem = new BasketItem();
-    basketItem.basket = basket;
-    basketItem.product = product;
+    // basketItem.basket = basket;
+    // basketItem.product = product;
     basketItem.amount = amount;
-    basket.items.push(basketItem);
+    // basket.items.push(basketItem);
     this.basketItemsRepository.save(basketItem);
     this.basketsRepository.save(basket);
     return basket.id;
@@ -43,7 +43,7 @@ export default class BasketService {
     return basket;
   }
 
-  findAll(): Promise<Basket[]> {
+  findAll(basketArgs: BasketArgs): Promise<Basket[]> {
     return this.basketsRepository.find();
   }
 
